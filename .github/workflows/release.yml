@@ -22,7 +22,7 @@ jobs:
         uses: tvdias/github-tagger@v0.0.1
         with:
           repo-token: ${{ secrets.GITHUB_TOKEN }}
-          tag: ${{ env.VERSION }}
+          tag: "v${{ env.VERSION }}"
       - uses: GoogleCloudPlatform/release-please-action@v2
         id: release
         with:
@@ -30,7 +30,6 @@ jobs:
           package-name: release-please-demo
           bump-minor-pre-major: true
           version-file: "lib/version.rb"
-      #- uses: actions/checkout@v2
       - name: publish gem
         run: |
           mkdir -p $HOME/.gem
