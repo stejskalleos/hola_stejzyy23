@@ -23,7 +23,7 @@ jobs:
       - run: bundle install
       - name: Set variables
         run: |
-          VER=$(bundle exec ruby -e 'puts Hola::VERSION'
+          VER=$(bundle exec ruby -e 'puts Hola::VERSION')
           echo "VERSION=$VER" >> $GITHUB_ENV
       - uses: actions/checkout@v2
       - name: Bump version and push tag
