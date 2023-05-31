@@ -1,0 +1,39 @@
+name: release_two
+
+on:
+  push:
+    paths:
+      - "lib/version.rb"
+
+jobs:
+  release-please:
+    runs-on: ubuntu-latest
+    steps:
+#       - uses: GoogleCloudPlatform/release-please-action@v2
+#         id: release
+#         with:
+#           release-type: ruby
+#           package-name: release-please-demo
+#           bump-minor-pre-major: true
+#           version-file: "lib/version.rb"
+      - uses: actions/checkout@v2
+      - uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: 2.7
+      - run: bundle install
+      - name: Set variables
+        run: |
+          VER=$(bundle exec ruby -e 'puts Hola::VERSION'
+          echo "VERSION=$VER" >> $GITHUB_ENV
+      - uses: actions/checkout@v2
+      - name: Bump version and push tag
+        id: tag_version
+        uses: mathieudutour/github-tag-action@v6.1
+        with:
+          github_token: ${{ secrets.TOKEN }}
+      - name: Create a GitHub release
+        uses: ncipollo/release-action@v1
+        with:
+          tag: ${{ steps.tag_version.outputs.new_tag }}
+          name: Release ${{ steps.tag_version.outputs.new_tag }}
+          body: ${{ steps.tag_version.outputs.changelog }}
