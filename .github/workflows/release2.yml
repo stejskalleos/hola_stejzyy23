@@ -9,13 +9,6 @@ jobs:
   release-please:
     runs-on: ubuntu-latest
     steps:
-#       - uses: GoogleCloudPlatform/release-please-action@v2
-#         id: release
-#         with:
-#           release-type: ruby
-#           package-name: release-please-demo
-#           bump-minor-pre-major: true
-#           version-file: "lib/version.rb"
       - uses: actions/checkout@v2
       - uses: ruby/setup-ruby@v1
         with:
@@ -30,3 +23,22 @@ jobs:
         with:
           repo-token: ${{ secrets.GITHUB_TOKEN }}
           tag: ${{ env.VERSION }}
+      - uses: GoogleCloudPlatform/release-please-action@v2
+        id: release
+        with:
+          release-type: ruby
+          package-name: release-please-demo
+          bump-minor-pre-major: true
+          version-file: "lib/version.rb"
+      #- uses: actions/checkout@v2
+      - name: publish gem
+        run: |
+          mkdir -p $HOME/.gem
+          touch $HOME/.gem/credentials
+          chmod 0600 $HOME/.gem/credentials
+          printf -- "---\n:rubygems_api_key: ${RUBYGEM_API_KEY}\n" > $HOME/.gem/credentials
+          cat $HOME/.gem/credentials
+          gem build *.gemspec
+          gem push *.gem
+        env:
+          GEM_HOST_API_KEY: "${{secrets.RUBYGEM_API_KEY}}"
