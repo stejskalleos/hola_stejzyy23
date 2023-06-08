@@ -9,7 +9,7 @@ jobs:
   release-please:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
       - uses: ruby/setup-ruby@v1
         with:
           ruby-version: 2.7
@@ -23,13 +23,6 @@ jobs:
         with:
           repo-token: ${{ secrets.GITHUB_TOKEN }}
           tag: "v${{ env.VERSION }}"
-#       - uses: GoogleCloudPlatform/release-please-action@v2
-#         id: release
-#         with:
-#           release-type: ruby
-#           package-name: release-please-demo
-#           bump-minor-pre-major: true
-#           version-file: "lib/version.rb"
       - name: publish gem
         run: |
           mkdir -p $HOME/.gem
