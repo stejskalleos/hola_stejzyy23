@@ -13,16 +13,10 @@ jobs:
       - uses: ruby/setup-ruby@v1
         with:
           ruby-version: 2.7
-      - run: bundle install
       - name: Set variables
         run: |
-          VER=$(bundle exec ruby -e 'puts Hola::VERSION')
+          VER=$(ruby -rrubygems -e 'puts Gem::Specification::load(Dir.glob("*.gemspec")[0]).version')
           echo "VERSION=$VER" >> $GITHUB_ENV
-      - name: Tag snapshot
-        uses: tvdias/github-tagger@v0.0.1
-        with:
-          repo-token: ${{ secrets.GITHUB_TOKEN }}
-          tag: "v${{ env.VERSION }}"
       - name: publish gem
         run: |
           mkdir -p $HOME/.gem
@@ -33,3 +27,8 @@ jobs:
           gem push *.gem
         env:
           GEM_HOST_API_KEY: "${{secrets.RUBYGEM_API_KEY}}"
+      - name: Tag snapshot
+        uses: tvdias/github-tagger@v0.0.1
+        with:
+          repo-token: ${{ secrets.GITHUB_TOKEN }}
+          tag: "v${{ env.VERSION }}"
