@@ -8,4 +8,4 @@ inputs:
     description: 'Tag value'
 runs:
   using: 'node16'
-  main: 'dist/run.js'
+  main: 'src/run.js'
