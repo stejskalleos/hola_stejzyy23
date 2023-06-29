@@ -2,7 +2,7 @@
 name: Create a tag from version.rb
 
 on:
-  workflow_call:
+  workflow_dispatch:
 
 jobs:
   tag:
