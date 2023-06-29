@@ -10,9 +10,9 @@ jobs:
     steps:
       - name: "Get plugin version"
         id: 'gv'
-        uses: "stejskalleos/hola/.github/actions/gem_version@main"
+        uses: "stejskalleos/hola_stejzyy23/.github/actions/gem_version@main"
       - name: "Create a tag"
-        uses: "stejskalleos/hola/.github/actions/create_tag@main"
+        uses: "stejskalleos/hola_stejzyy23/.github/actions/create_tag@main"
         with:
           repo-token: ${{ secrets.GITHUB_TOKEN }}
           tag: ${{needs.gv.outputs.version}}
