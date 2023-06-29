@@ -7,11 +7,11 @@ on:
 jobs:
   gem_version:
     name: "Get plugin version"
-    uses: "stejskalleos/hola/.github/actions/gem_version"
+    uses: "stejskalleos/hola/.github/actions/gem_version@main"
   tag:
     name: "Create a tag"
     needs: gem_version
-    uses: "stejskalleos/hola/.github/actions/create_tag"
+    uses: "stejskalleos/hola/.github/actions/create_tag@main"
     with:
       - repo-token: ${{ secrets.GITHUB_TOKEN }}
       - tag: ${{needs.gem_version.outputs.version}}
