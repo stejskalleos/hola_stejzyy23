@@ -8,17 +8,12 @@ jobs:
   meh:
     runs-on: ubuntu-latest
     steps:
-      - name: "Get plugin version"
-        id: 'gv'
-        uses: "stejskalleos/hola_stejzyy23/.github/actions/gem_version@main"
-      - name: Echo
-        run: |
-          echo "TAGGS VALUES"
-          echo ${{ steps.gv.outputs.version }}
-          echo ${{ steps.gv.outputs }}
-          echo ${{ steps.gv.outputs.stdout }}
+#       - name: "Get plugin version"
+#         id: 'gv'
+#         uses: "stejskalleos/hola_stejzyy23/.github/actions/gem_version@main"
       - name: "Create a tag"
         uses: "stejskalleos/hola_stejzyy23/.github/actions/create_tag@main"
         with:
           repo-token: ${{ secrets.GITHUB_TOKEN }}
-          tag: ${{ steps.gv.outputs.version }}
+#           tag: ${{ steps.gv.outputs.version }}
+          tag: "v0.0.20"
