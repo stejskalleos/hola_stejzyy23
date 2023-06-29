@@ -36,22 +36,29 @@ const core = __importStar(require("@actions/core"));
 const github = __importStar(require("@actions/github"));
 function run() {
     return __awaiter(this, void 0, void 0, function* () {
-        try {
-            const token = core.getInput("repo-token", { required: true });
-            const tag = core.getInput("tag", { required: true });
-            const sha = github.context.sha;
-            const client = new github.GitHub(token);
-            yield client.git.createRef({
-                owner: github.context.repo.owner,
-                repo: github.context.repo.repo,
-                ref: `refs/tags/${tag}`,
-                sha: sha,
-            });
-        }
-        catch (error) {
-            core.error(error);
-            core.setFailed(error.message);
-        }
+        const { Octokit } = require('@octokit/rest');
+        const token = core.getInput("repo-token", { required: true });
+        const tag = core.getInput("tag", { required: true });
+        const sha = github.context.sha;
+        const owner = github.context.repo.owner;
+        const repo = github.context.repo.repo;
+        const octokit = new Octokit({
+            auth: token
+        });
+        octokit.repos.createTag({
+            owner,
+            repo,
+            tag,
+            // message: 'Tag message',
+            object: sha,
+            // type: 'commit'
+        })
+            .then(response => {
+            console.log(`Tag ${response.data.tag} created successfully!`);
+        })
+            .catch(error => {
+            console.error('Error creating tag:', error);
+        });
     });
 }
 run();
