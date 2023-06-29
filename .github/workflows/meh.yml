@@ -21,4 +21,4 @@ jobs:
         uses: "stejskalleos/hola_stejzyy23/.github/actions/create_tag@main"
         with:
           repo-token: ${{ secrets.GITHUB_TOKEN }}
-          tag: ${{ steps.gv.outputs.stdout }}
+          tag: ${{ steps.gv.outputs.version }}
