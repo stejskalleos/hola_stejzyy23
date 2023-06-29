@@ -11,9 +11,9 @@ runs:
     - uses: ruby/setup-ruby@v1
       with:
         ruby-version: 2.7
-    # - id: get-gem-version
-      # run: |
-      #   VER=$(ruby -rrubygems -e 'puts Gem::Specification::load(Dir.glob("*.gemspec")[0]).version')
-      #   echo "gem-version=$VER" >> $GITHUB_OUTPUT
       run: echo $(ruby -rrubygems -e 'puts Gem::Specification::load(Dir.glob("*.gemspec")[0]).version')
       shell: bash
+# - id: get-gem-version
+# run: |
+#   VER=$(ruby -rrubygems -e 'puts Gem::Specification::load(Dir.glob("*.gemspec")[0]).version')
+#   echo "gem-version=$VER" >> $GITHUB_OUTPUT
