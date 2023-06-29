@@ -1,9 +1,9 @@
 name: 'Get a gem version'
 author: 'The Foreman team'
-outputs:
-  gem-version:
-    description: "Gem version"
-    value: ${{ steps.get-gem-version.outputs.gem-version }}
+# outputs:
+#   gem-version:
+#     description: "Gem version"
+#     value: ${{ steps.get-gem-version.outputs.gem-version }}
 runs:
   using: "composite"
   steps:
@@ -11,8 +11,9 @@ runs:
     - uses: ruby/setup-ruby@v1
       with:
         ruby-version: 2.7
-    - id: get-gem-version
-      run: |
-        VER=$(ruby -rrubygems -e 'puts Gem::Specification::load(Dir.glob("*.gemspec")[0]).version')
-        echo "gem-version=$VER" >> $GITHUB_OUTPUT
+    # - id: get-gem-version
+      # run: |
+      #   VER=$(ruby -rrubygems -e 'puts Gem::Specification::load(Dir.glob("*.gemspec")[0]).version')
+      #   echo "gem-version=$VER" >> $GITHUB_OUTPUT
+      run: echo $(ruby -rrubygems -e 'puts Gem::Specification::load(Dir.glob("*.gemspec")[0]).version')
       shell: bash
