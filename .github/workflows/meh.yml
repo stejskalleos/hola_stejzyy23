@@ -12,7 +12,11 @@ jobs:
         id: 'gv'
         uses: "stejskalleos/hola_stejzyy23/.github/actions/gem_version@main"
       - name: Echo
-        run: echo ${{ steps.gv.outputs.stdout }}
+        run: |
+          echo "TAGGS VALUES"
+          echo ${{ steps.gv.outputs.version }}
+          echo ${{ steps.gv.outputs }}
+          echo ${{ steps.gv.outputs.stdout }}
       - name: "Create a tag"
         uses: "stejskalleos/hola_stejzyy23/.github/actions/create_tag@main"
         with:
