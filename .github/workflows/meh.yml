@@ -5,13 +5,14 @@ on:
   workflow_dispatch:
 
 jobs:
-  gem_version:
-    name: "Get plugin version"
-    uses: "stejskalleos/hola/.github/actions/gem_version@main"
-  tag:
-    name: "Create a tag"
-    needs: gem_version
-    uses: "stejskalleos/hola/.github/actions/create_tag@main"
-    with:
-      - repo-token: ${{ secrets.GITHUB_TOKEN }}
-      - tag: ${{needs.gem_version.outputs.version}}
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: "Get plugin version"
+        id: 'gv'
+        uses: "stejskalleos/hola/.github/actions/gem_version@main"
+      - name: "Create a tag"
+        uses: "stejskalleos/hola/.github/actions/create_tag@main"
+        with:
+          repo-token: ${{ secrets.GITHUB_TOKEN }}
+          tag: ${{needs.gv.outputs.version}}
