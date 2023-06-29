@@ -12,5 +12,9 @@ runs:
       with:
         ruby-version: 2.7
     - name: VERSION
-      run: echo $(ruby -rrubygems -e 'puts Gem::Specification::load(Dir.glob("*.gemspec")[0]).version')
       shell: bash
+      run: |
+        echo "HELEEEE"
+        echo "$(ruby -rrubygems -e 'puts Gem::Specification::load(Dir.glob("*.gemspec")[0]).version')"
+        echo "YAAAY"
+        echo "TEEEEST" >> $GITHUB_OUTPUT
