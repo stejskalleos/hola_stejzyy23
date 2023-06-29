@@ -3,7 +3,7 @@ author: 'The Foreman team'
 outputs:
   gem-version:
     description: "Gem version"
-    value: ${{ steps.get-gem-version.outputs.version }}
+    value: ${{ steps.get-gem-version.outputs.gem-version }}
 runs:
   using: "composite"
   steps:
@@ -14,5 +14,5 @@ runs:
     - id: get-gem-version
       run: |
         VER=$(ruby -rrubygems -e 'puts Gem::Specification::load(Dir.glob("*.gemspec")[0]).version')
-        echo "VERSION=$VER" >> $GITHUB_ENV
+        echo "gem-version=$VER" >> $GITHUB_OUTPUT
       shell: bash
