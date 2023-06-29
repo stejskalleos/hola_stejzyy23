@@ -1,9 +1,9 @@
 name: 'Get a gem version'
 author: 'The Foreman team'
-# outputs:
-#   gem-version:
-#     description: "Gem version"
-#     value: ${{ steps.get-gem-version.outputs.gem-version }}
+outputs:
+  version:
+    description: "Gem version"
+    value: ${{ steps.dd.outputs.version }}
 runs:
   using: "composite"
   steps:
@@ -13,6 +13,7 @@ runs:
         ruby-version: 2.7
     - name: VERSION
       shell: bash
+      id: dd
       run: |
         echo "HELEEEE"
         echo "$(ruby -rrubygems -e 'puts Gem::Specification::load(Dir.glob("*.gemspec")[0]).version')"
