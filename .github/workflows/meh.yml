@@ -15,8 +15,10 @@ jobs:
     runs-on: ubuntu-latest
     needs: gem
     steps:
+      - name: Echo
+        run: echo ${{needs.gem.outputs.gem-version}}
       - name: "Create a tag"
         uses: "stejskalleos/hola_stejzyy23/.github/actions/create_tag@main"
         with:
           repo-token: ${{ secrets.GITHUB_TOKEN }}
-          tag: ${{needs.gv.outputs.gem-version}}
+          tag: ${{needs.gem.outputs.gem-version}}
