@@ -1,0 +1,17 @@
+---
+name: Create a tag from version.rb
+
+on:
+  workflow_dispatch:
+
+jobs:
+  gem_version:
+    name: "Get plugin version"
+    uses: "stejskalleos/hola/.github/actions/gem_version"
+  tag:
+    name: "Create a tag"
+    needs: gem_version
+    uses: "stejskalleos/hola/.github/actions/create_tag"
+    with:
+      - repo-token: ${{ secrets.GITHUB_TOKEN }}
+      - tag: ${{needs.gem_version.outputs.version}}
