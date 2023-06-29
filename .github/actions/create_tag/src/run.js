@@ -15,7 +15,6 @@ async function run() {
       ref: `refs/tags/${tag}`,
       sha: sha
     });
-
   } catch (error) {
     core.error(error);
     core.setFailed(error.message);

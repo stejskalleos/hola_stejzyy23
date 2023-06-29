@@ -1,0 +1,11 @@
+name: 'Create a tag'
+description: 'Tag commit with a given version'
+author: 'The Foreman'
+inputs:
+  repo-token:
+    description: 'The GITHUB_TOKEN secret'
+  tag:
+    description: 'Tag value'
+runs:
+  using: 'node16'
+  main: 'dist/index.js'
