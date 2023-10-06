@@ -1,0 +1,41 @@
+name: Create a PR
+
+on:
+  workflow_dispatch:
+env:
+  branch_name: "meh-${{ github.run_id }}"
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        ruby-version: [2.7]
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+      - name: Set up Git
+        run: |
+          git config user.name "GitHub Actions"
+          git config user.email "actions@github.com"
+
+      - name: Create a new branch
+        run: |
+          git checkout -b $branch_name
+          git push --set-upstream origin $branch_name
+
+      - name: Add and push changes
+        run: |
+          echo "$(date)" >> changes.txt
+          git add .
+          git commit -m "Yolo! New changes"
+          git push origin $branch_name
+      - uses: repo-sync/pull-request@v2
+        name: pull-request
+        with:
+          destination_branch: "main"
+          pr_title: "Pulling Yay!"
+          pr_body: "👑 *An automated PR*"
+          pr_draft: true
