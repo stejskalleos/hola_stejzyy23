@@ -33,3 +33,5 @@ jobs:
       - name: pull-request
         run: |
           gh pr create --title "Pull request title" --body "Pull request body"
+        env:
+          GH_TOKENGITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
