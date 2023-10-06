@@ -8,10 +8,6 @@ env:
 jobs:
   build:
     runs-on: ubuntu-latest
-    strategy:
-      fail-fast: false
-      matrix:
-        ruby-version: [2.7]
 
     steps:
       - name: Checkout code
@@ -32,10 +28,8 @@ jobs:
           git add .
           git commit -m "Yolo! New changes"
           git push origin $branch_name
-      - uses: repo-sync/pull-request@v2
-        name: pull-request
-        with:
-          destination_branch: "main"
-          pr_title: "Pulling Yay!"
-          pr_body: "👑 *An automated PR*"
-          pr_draft: true
+
+      - uses: actions/checkout@v3
+      - name: pull-request
+        run: |
+          gh pr create --title "Pull request title" --body "Pull request body"
